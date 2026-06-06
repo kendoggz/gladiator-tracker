@@ -17,94 +17,94 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--jeep-light); color: var(--jeep-dark); min-height: 100vh; }
 
-header { background: var(--jeep-dark); color: white; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-header h1 { font-size: 22px; font-weight: 700; }
+header { background: var(--jeep-dark); color: white; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+header h1 { font-size: 21px; font-weight: 700; }
 header h1 span { color: var(--jeep-tan); }
-.meta { font-size: 13px; color: #aaa; }
+.meta { font-size: 12px; color: #aaa; }
 
-.criteria-panel { background: var(--jeep-olive); color: white; padding: 16px 32px 20px; }
-.criteria-panel h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
-.criteria-grid { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; margin-bottom: 16px; }
-.criteria-field { display: flex; flex-direction: column; gap: 4px; }
-.criteria-field label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.7); }
-.criteria-field input {
-  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 6px; color: white; font-size: 14px; font-weight: 600;
-  padding: 7px 10px; width: 110px; transition: background 0.15s;
-}
-.criteria-field input:focus { outline: none; background: rgba(255,255,255,0.25); border-color: var(--jeep-tan); }
-
-.reset-btn {
-  background: transparent; color: rgba(255,255,255,0.55); border: none;
-  font-size: 12px; cursor: pointer; padding: 7px 4px; text-decoration: underline;
-  align-self: flex-end;
-}
+/* Criteria */
+.criteria-panel { background: var(--jeep-olive); color: white; padding: 14px 32px 18px; }
+.criteria-panel h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.55); margin-bottom: 10px; }
+.criteria-grid { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 14px; }
+.criteria-field { display: flex; flex-direction: column; gap: 3px; }
+.criteria-field label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.65); }
+.criteria-field input { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.28); border-radius: 5px; color: white; font-size: 13px; font-weight: 600; padding: 6px 9px; width: 105px; }
+.criteria-field input:focus { outline: none; background: rgba(255,255,255,0.22); border-color: var(--jeep-tan); }
+.reset-btn { background: transparent; color: rgba(255,255,255,0.5); border: none; font-size: 11px; cursor: pointer; padding: 6px 2px; text-decoration: underline; align-self: flex-end; }
 .reset-btn:hover { color: white; }
-
-.search-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.search-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.6); margin-right: 4px; }
-.site-btn {
-  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-  color: white; border-radius: 6px; padding: 7px 14px; font-size: 12px; font-weight: 600;
-  cursor: pointer; text-decoration: none; display: inline-block; white-space: nowrap;
-  transition: background 0.15s;
-}
-.site-btn:hover { background: rgba(255,255,255,0.28); }
+.search-row { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.search-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.55); margin-right: 3px; }
+.site-btn { background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.28); color: white; border-radius: 5px; padding: 6px 13px; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; white-space: nowrap; transition: background 0.12s; }
+.site-btn:hover { background: rgba(255,255,255,0.25); }
 .site-btn.primary { background: var(--jeep-tan); color: var(--jeep-dark); border-color: var(--jeep-tan); }
-.site-btn.primary:hover { opacity: 0.88; }
+.site-btn.primary:hover { opacity: 0.85; }
 
-.summary-banner { padding: 14px 32px; font-size: 14px; border-left: 4px solid; }
+/* Filter/sort bar */
+.filter-bar { background: white; border-bottom: 1px solid #e0dbd4; padding: 10px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 10; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.source-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.source-tab { background: transparent; border: 1px solid #ddd; color: #666; border-radius: 5px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.12s; }
+.source-tab:hover { border-color: var(--jeep-olive); color: var(--jeep-olive); }
+.source-tab.active { background: var(--jeep-olive); border-color: var(--jeep-olive); color: white; }
+.source-tab .tab-count { font-size: 10px; opacity: 0.75; margin-left: 4px; }
+.sort-controls { display: flex; align-items: center; gap: 8px; }
+.sort-label { font-size: 11px; color: #888; }
+.sort-btn { background: transparent; border: 1px solid #ddd; color: #666; border-radius: 5px; padding: 5px 11px; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.sort-btn:hover { border-color: var(--jeep-olive); color: var(--jeep-olive); }
+.sort-btn.active { background: var(--jeep-tan); border-color: var(--jeep-tan); color: var(--jeep-dark); }
+
+/* Summary */
+.summary-banner { padding: 12px 32px; font-size: 13px; border-left: 4px solid; }
 .summary-banner.none { background: #fff3cd; border-color: var(--orange); color: #7d4e00; }
 .summary-banner.some { background: #eaf5eb; border-color: var(--green); color: #1a4d22; }
 .summary-banner.all  { background: #eaf5eb; border-color: var(--green); color: #1a4d22; }
 
-main { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
+/* Cards */
+main { padding: 24px 32px; max-width: 1180px; margin: 0 auto; }
 .section-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
-.section-header h2 { font-size: 16px; font-weight: 600; color: var(--jeep-olive); }
+.section-header h2 { font-size: 15px; font-weight: 600; color: var(--jeep-olive); }
 .section-header .count { font-size: 12px; color: #888; }
-
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
-.card {
-  background: white; border-radius: 10px; padding: 18px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.08); border: 1px solid #e8e4de; position: relative;
-}
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.07); border: 1px solid #e8e4de; position: relative; }
 .card.hidden { display: none; }
-.card.match { border-color: #a8d5af; box-shadow: 0 1px 8px rgba(45,122,58,0.12); }
+.card.match { border-color: #a8d5af; box-shadow: 0 1px 8px rgba(45,122,58,0.1); }
 
-.card-badge {
-  position: absolute; top: 12px; right: 12px; font-size: 11px; font-weight: 700;
-  padding: 3px 8px; border-radius: 99px; color: white;
-}
+/* Value score */
+.value-score { position: absolute; top: 12px; left: 12px; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: white; }
+.score-high  { background: var(--green); }
+.score-mid   { background: var(--orange); }
+.score-low   { background: #999; }
+
+.card-badge { position: absolute; top: 14px; right: 12px; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 99px; color: white; }
 .badge-match { background: var(--green); }
 .badge-over-budget { background: var(--orange); }
 .badge-over-miles { background: var(--orange); }
 .badge-both { background: var(--red); }
 
-.card-year { font-size: 13px; color: #888; margin-bottom: 4px; }
-.card-name { font-size: 17px; font-weight: 700; margin-bottom: 14px; }
-.card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-.stat-label { color: #999; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
-.stat-value { font-weight: 600; font-size: 15px; margin-top: 2px; }
-.stat-value.price { color: var(--jeep-olive); font-size: 18px; }
+.card-top { margin-top: 8px; padding-top: 6px; padding-left: 44px; }
+.card-year { font-size: 12px; color: #888; margin-bottom: 2px; }
+.card-name { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+.card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.stat-label { color: #999; font-size: 10px; text-transform: uppercase; letter-spacing: .4px; }
+.stat-value { font-weight: 600; font-size: 14px; margin-top: 1px; }
+.stat-value.price { color: var(--jeep-olive); font-size: 17px; }
 .stat-value.over { color: var(--orange); }
 .stat-value.good { color: var(--green); }
-.tag { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 4px; background: #eaf5eb; color: var(--green); font-weight: 600; margin-right: 4px; margin-bottom: 6px; }
+.card-tags { margin-bottom: 4px; }
+.tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 4px; background: #eaf5eb; color: var(--green); font-weight: 600; margin-right: 4px; margin-bottom: 5px; }
 .tag.warn { background: #fff3cd; color: #7d4e00; }
 .tag.neutral { background: #f0ede8; color: #666; }
-.view-btn {
-  display: block; width: 100%; text-align: center; margin-top: 10px; padding: 9px;
-  background: var(--jeep-olive); color: white; text-decoration: none; border-radius: 6px;
-  font-size: 13px; font-weight: 600;
-}
+.tag.source { background: #e8f0fe; color: #2255c4; }
+.view-btn { display: block; width: 100%; text-align: center; margin-top: 8px; padding: 8px; background: var(--jeep-olive); color: white; text-decoration: none; border-radius: 6px; font-size: 12px; font-weight: 600; }
 .view-btn:hover { background: var(--jeep-dark); }
 
-.empty-state { text-align: center; padding: 40px 20px; color: #888; font-size: 14px; }
-.note { font-size: 13px; color: #888; margin-top: 32px; border-top: 1px solid #e0dbd4; padding-top: 16px; }
+.empty-state { text-align: center; padding: 48px 20px; color: #888; font-size: 14px; }
+.empty-state p { margin-bottom: 8px; }
+.note { font-size: 12px; color: #999; margin-top: 28px; border-top: 1px solid #e0dbd4; padding-top: 14px; }
 
-@media (max-width: 600px) {
-  header, .criteria-panel, main { padding-left: 16px; padding-right: 16px; }
-  .criteria-field input { width: 90px; }
-  .search-row { gap: 6px; }
+@media (max-width: 640px) {
+  header, .criteria-panel, .filter-bar, main { padding-left: 16px; padding-right: 16px; }
+  .criteria-field input { width: 88px; }
+  .filter-bar { position: static; }
 }
 </style>
 </head>
@@ -112,41 +112,22 @@ main { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
 
 <header>
   <h1>&#x1F699; Gladiator <span>Mojave</span> Tracker</h1>
-  <div class="meta">Last updated: June 6, 2026 &middot; Hingham MA area</div>
+  <div class="meta">Hingham MA area &middot; Last scraped: June 6, 2026</div>
 </header>
 
 <div class="criteria-panel">
-  <h3>Search Criteria &mdash; edit any field to update links</h3>
+  <h3>Filter &amp; Search Criteria</h3>
   <div class="criteria-grid">
-    <div class="criteria-field">
-      <label>Max Price ($)</label>
-      <input type="number" id="inp-price" value="34000" min="0" step="500">
-    </div>
-    <div class="criteria-field">
-      <label>Max Miles</label>
-      <input type="number" id="inp-miles" value="35000" min="0" step="1000">
-    </div>
-    <div class="criteria-field">
-      <label>Year Min</label>
-      <input type="number" id="inp-year-min" value="2021" min="2019" max="2025" step="1">
-    </div>
-    <div class="criteria-field">
-      <label>Year Max</label>
-      <input type="number" id="inp-year-max" value="2024" min="2019" max="2025" step="1">
-    </div>
-    <div class="criteria-field">
-      <label>ZIP Code</label>
-      <input type="text" id="inp-zip" value="02043" maxlength="5">
-    </div>
-    <div class="criteria-field">
-      <label>Radius (mi)</label>
-      <input type="number" id="inp-radius" value="75" min="10" max="500" step="5">
-    </div>
-    <button class="reset-btn" onclick="resetCriteria()">Reset</button>
+    <div class="criteria-field"><label>Max Price ($)</label><input type="number" id="inp-price" value="34000" min="0" step="500"></div>
+    <div class="criteria-field"><label>Max Miles</label><input type="number" id="inp-miles" value="35000" min="0" step="1000"></div>
+    <div class="criteria-field"><label>Year Min</label><input type="number" id="inp-year-min" value="2021" min="2019" max="2025" step="1"></div>
+    <div class="criteria-field"><label>Year Max</label><input type="number" id="inp-year-max" value="2024" min="2019" max="2025" step="1"></div>
+    <div class="criteria-field"><label>ZIP Code</label><input type="text" id="inp-zip" value="02043" maxlength="5"></div>
+    <div class="criteria-field"><label>Radius (mi)</label><input type="number" id="inp-radius" value="75" min="10" max="500" step="5"></div>
+    <button class="reset-btn" onclick="resetCriteria()">Reset defaults</button>
   </div>
-
   <div class="search-row">
-    <span class="search-label">Search on:</span>
+    <span class="search-label">Fresh search on:</span>
     <a id="link-autotrader" href="#" target="_blank" class="site-btn primary">AutoTrader</a>
     <a id="link-cargurus"   href="#" target="_blank" class="site-btn">CarGurus</a>
     <a id="link-cars"       href="#" target="_blank" class="site-btn">Cars.com</a>
@@ -155,142 +136,213 @@ main { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
   </div>
 </div>
 
+<div class="filter-bar">
+  <div class="source-tabs" id="source-tabs">
+    <button class="source-tab active" data-source="all" onclick="setSource('all')">All <span class="tab-count" id="cnt-all"></span></button>
+    <button class="source-tab" data-source="autotrader" onclick="setSource('autotrader')">AutoTrader <span class="tab-count" id="cnt-autotrader"></span></button>
+    <button class="source-tab" data-source="cargurus"   onclick="setSource('cargurus')">CarGurus <span class="tab-count" id="cnt-cargurus"></span></button>
+    <button class="source-tab" data-source="cars"       onclick="setSource('cars')">Cars.com <span class="tab-count" id="cnt-cars"></span></button>
+    <button class="source-tab" data-source="kbb"        onclick="setSource('kbb')">KBB <span class="tab-count" id="cnt-kbb"></span></button>
+    <button class="source-tab" data-source="edmunds"    onclick="setSource('edmunds')">Edmunds <span class="tab-count" id="cnt-edmunds"></span></button>
+  </div>
+  <div class="sort-controls">
+    <span class="sort-label">Sort:</span>
+    <button class="sort-btn active" data-sort="value"    onclick="setSort('value')">Best Value</button>
+    <button class="sort-btn"        data-sort="price-asc" onclick="setSort('price-asc')">Price ↑</button>
+    <button class="sort-btn"        data-sort="price-desc" onclick="setSort('price-desc')">Price ↓</button>
+    <button class="sort-btn"        data-sort="miles-asc"  onclick="setSort('miles-asc')">Miles ↑</button>
+    <button class="sort-btn"        data-sort="year-desc"  onclick="setSort('year-desc')">Newest</button>
+  </div>
+</div>
+
 <div class="summary-banner none" id="summary-banner">Loading...</div>
 
 <main>
   <div class="section-header">
-    <h2>Nearby Listings</h2>
+    <h2>Listings</h2>
     <span class="count" id="visible-count"></span>
   </div>
 
   <div class="card-grid" id="card-grid">
 
-    <div class="card" data-price="31805" data-miles="47000" data-year="2022">
+    <div class="card" data-price="31805" data-miles="47000" data-year="2022" data-source="autotrader" data-history="clean">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2022 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-top">
+        <div class="card-year">2022 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$31,805</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">47,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">74 mi away</div></div>
         <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
       </div>
-      <div><span class="tag neutral">Nucar Pre-Owned &middot; Concord NH</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag neutral">Nucar Pre-Owned &middot; Concord NH</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
-    <div class="card" data-price="31872" data-miles="59000" data-year="2022">
+    <div class="card" data-price="31872" data-miles="59000" data-year="2022" data-source="autotrader" data-history="clean">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2022 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-top">
+        <div class="card-year">2022 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$31,872</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">59,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">35 mi away</div></div>
         <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
       </div>
-      <div><span class="tag neutral">Imperial CDJR &middot; Mendon MA</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag neutral">Imperial CDJR &middot; Mendon MA</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
-    <div class="card" data-price="32980" data-miles="65000" data-year="2021">
+    <div class="card" data-price="32980" data-miles="65000" data-year="2021" data-source="autotrader" data-history="clean">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2021 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-top">
+        <div class="card-year">2021 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$32,980</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">65,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">22 mi away</div></div>
         <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
       </div>
-      <div><span class="tag neutral">Albrecht Buick GMC &middot; Wakefield MA</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag neutral">Albrecht Buick GMC &middot; Wakefield MA</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
-    <div class="card" data-price="35849" data-miles="35000" data-year="2021">
+    <div class="card" data-price="35849" data-miles="35000" data-year="2021" data-source="autotrader" data-history="certified">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2021 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab (CPO)</div>
+      <div class="card-top">
+        <div class="card-year">2021 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$35,849</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">35,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">24 mi away</div></div>
-        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">CPO Certified</div></div>
       </div>
-      <div><span class="tag">Jeep Certified</span><span class="tag neutral">Brigham-Gill CDJR</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag">Jeep Certified</span>
+        <span class="tag neutral">Brigham-Gill CDJR</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
-    <div class="card" data-price="38282" data-miles="33000" data-year="2022">
+    <div class="card" data-price="38282" data-miles="33000" data-year="2022" data-source="autotrader" data-history="clean">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2022 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-top">
+        <div class="card-year">2022 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$38,282</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">33,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">58 mi away</div></div>
         <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
       </div>
-      <div><span class="tag neutral">Near Boston MA</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag neutral">Near Boston MA</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
-    <div class="card" data-price="38384" data-miles="29000" data-year="2023">
+    <div class="card" data-price="38384" data-miles="29000" data-year="2023" data-source="autotrader" data-history="clean">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2023 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-top">
+        <div class="card-year">2023 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$38,384</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">29,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">28 mi away</div></div>
         <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
       </div>
-      <div><span class="tag neutral">Vendetti Motors &middot; Franklin MA</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag neutral">Vendetti Motors &middot; Franklin MA</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
-    <div class="card" data-price="38395" data-miles="30000" data-year="2022">
+    <div class="card" data-price="38395" data-miles="30000" data-year="2022" data-source="autotrader" data-history="clean">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2022 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-top">
+        <div class="card-year">2022 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$38,395</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">30,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">71 mi away</div></div>
         <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
       </div>
-      <div><span class="tag neutral">Near Boston MA</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag neutral">Near Boston MA</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
-    <div class="card" data-price="42999" data-miles="14000" data-year="2022">
+    <div class="card" data-price="42999" data-miles="14000" data-year="2022" data-source="autotrader" data-history="unverified">
+      <div class="value-score"></div>
       <span class="card-badge"></span>
-      <div class="card-year">2022 Jeep Gladiator</div>
-      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-top">
+        <div class="card-year">2022 Jeep Gladiator</div>
+        <div class="card-name">Mojave Crew Cab</div>
+      </div>
       <div class="card-stats">
         <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$42,999</div></div>
         <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">14,000 mi</div></div>
         <div><div class="stat-label">Distance</div><div class="stat-value">29 mi away</div></div>
         <div><div class="stat-label">History</div><div class="stat-value">Unverified</div></div>
       </div>
-      <div><span class="tag warn">Unverified history</span></div>
-      <a class="view-btn listing-link" href="#" target="_blank">Search this price on AutoTrader &rarr;</a>
+      <div class="card-tags">
+        <span class="tag warn">Unverified history</span>
+        <span class="tag source">AutoTrader</span>
+      </div>
+      <a class="view-btn listing-link" href="#" target="_blank">Find this listing &rarr;</a>
     </div>
 
   </div>
 
   <div id="empty-state" class="empty-state" style="display:none">
-    No listings match your current criteria. Try adjusting the fields above.
+    <p id="empty-msg">No listings match your criteria.</p>
+    <p style="font-size:13px;color:#aaa;">Use the search buttons above for fresh results from that site.</p>
   </div>
 
   <p class="note">
     Listings scraped June 6, 2026 from AutoTrader &middot;
-    Use the search buttons above to find fresh results across all sites.
+    Value score ranks each car by price, mileage, year, and history relative to others shown.
   </p>
 </main>
 
 <script>
 const DEFAULTS = { price: 34000, miles: 35000, yearMin: 2021, yearMax: 2024, zip: '02043', radius: 75 };
+let activeSource = 'all';
+let activeSort   = 'value';
 
 function getCriteria() {
   return {
@@ -302,14 +354,10 @@ function getCriteria() {
     radius:  parseInt(document.getElementById('inp-radius').value)   || DEFAULTS.radius,
   };
 }
-
-function saveCriteria(c) {
-  try { localStorage.setItem('gladiator-criteria', JSON.stringify(c)); } catch(e) {}
-}
-
+function saveCriteria(c) { try { localStorage.setItem('gmt-criteria', JSON.stringify(c)); } catch(e) {} }
 function loadCriteria() {
   try {
-    const s = JSON.parse(localStorage.getItem('gladiator-criteria'));
+    const s = JSON.parse(localStorage.getItem('gmt-criteria'));
     if (!s) return;
     if (s.price)   document.getElementById('inp-price').value    = s.price;
     if (s.miles)   document.getElementById('inp-miles').value    = s.miles;
@@ -319,7 +367,6 @@ function loadCriteria() {
     if (s.radius)  document.getElementById('inp-radius').value   = s.radius;
   } catch(e) {}
 }
-
 function resetCriteria() {
   document.getElementById('inp-price').value    = DEFAULTS.price;
   document.getElementById('inp-miles').value    = DEFAULTS.miles;
@@ -329,36 +376,74 @@ function resetCriteria() {
   document.getElementById('inp-radius').value   = DEFAULTS.radius;
   update();
 }
+function setSource(src) {
+  activeSource = src;
+  document.querySelectorAll('.source-tab').forEach(t => t.classList.toggle('active', t.dataset.source === src));
+  update();
+}
+function setSort(s) {
+  activeSort = s;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === s));
+  update();
+}
 
 function buildURLs(c) {
   return {
     autotrader: 'https://www.autotrader.com/cars-for-sale/used-cars/jeep/gladiator/mojave/' + c.zip +
       '?searchRadius=' + c.radius + '&startYear=' + c.yearMin + '&endYear=' + c.yearMax +
       '&maxPrice=' + c.price + '&maxMileage=' + c.miles,
-
     cargurus: 'https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action' +
       '?zip=' + c.zip + '&distance=' + c.radius +
       '&trim=Mojave&minYear=' + c.yearMin + '&maxYear=' + c.yearMax +
-      '&maxPrice=' + c.price + '&maxMileage=' + c.miles +
-      '&makeId=200001374&modelId=d2376',
-
+      '&maxPrice=' + c.price + '&maxMileage=' + c.miles + '&makeId=200001374&modelId=d2376',
     cars: 'https://www.cars.com/shopping/results/' +
       '?stock_type=used&makes%5B%5d=jeep&models%5B%5d=jeep-gladiator&trim_slug%5B%5d=mojave' +
       '&maximum_distance=' + c.radius + '&zip=' + c.zip +
       '&year_min=' + c.yearMin + '&year_max=' + c.yearMax +
       '&price_max=' + c.price + '&mileage_max=' + c.miles,
-
     kbb: 'https://www.kbb.com/cars-for-sale/used-cars/jeep/gladiator/' + c.zip +
       '?radius=' + c.radius + '&priceTo=' + c.price + '&mileageTo=' + c.miles +
       '&startYear=' + c.yearMin + '&endYear=' + c.yearMax + '&trims=Mojave',
-
     edmunds: 'https://www.edmunds.com/jeep/gladiator/used/radius-' + c.radius + '/' + c.zip + '/' +
       '?trm=Mojave&priceTo=' + c.price + '&mileageTo=' + c.miles +
       '&yearFrom=' + c.yearMin + '&yearTo=' + c.yearMax,
   };
 }
 
-function fmt(n) { return n.toLocaleString(); }
+function computeValueScore(card, allVisible) {
+  const prices = allVisible.map(c => parseInt(c.dataset.price));
+  const miles  = allVisible.map(c => parseInt(c.dataset.miles));
+  const years  = allVisible.map(c => parseInt(c.dataset.year));
+  const minPrice = Math.min(...prices), maxPrice = Math.max(...prices);
+  const minMiles = Math.min(...miles),  maxMiles = Math.max(...miles);
+  const minYear  = Math.min(...years),  maxYear  = Math.max(...years);
+
+  const price = parseInt(card.dataset.price);
+  const mi    = parseInt(card.dataset.miles);
+  const year  = parseInt(card.dataset.year);
+  const hist  = card.dataset.history;
+
+  const pS = maxPrice === minPrice ? 50 : (maxPrice - price) / (maxPrice - minPrice) * 100;
+  const mS = maxMiles === minMiles ? 50 : (maxMiles - mi)    / (maxMiles - minMiles) * 100;
+  const yS = maxYear  === minYear  ? 50 : (year - minYear)   / (maxYear  - minYear)  * 100;
+  const hS = hist === 'certified' ? 100 : hist === 'clean' ? 75 : 25;
+
+  return Math.round(pS * 0.38 + mS * 0.35 + yS * 0.17 + hS * 0.10);
+}
+
+function sortCards(cards, scores) {
+  const scored = cards.map(c => ({ card: c, score: scores.get(c) || 0 }));
+  switch (activeSort) {
+    case 'value':      scored.sort((a, b) => b.score - a.score); break;
+    case 'price-asc':  scored.sort((a, b) => parseInt(a.card.dataset.price) - parseInt(b.card.dataset.price)); break;
+    case 'price-desc': scored.sort((a, b) => parseInt(b.card.dataset.price) - parseInt(a.card.dataset.price)); break;
+    case 'miles-asc':  scored.sort((a, b) => parseInt(a.card.dataset.miles) - parseInt(b.card.dataset.miles)); break;
+    case 'year-desc':  scored.sort((a, b) => parseInt(b.card.dataset.year)  - parseInt(a.card.dataset.year));  break;
+  }
+  return scored.map(s => s.card);
+}
+
+const SOURCES = ['autotrader','cargurus','cars','kbb','edmunds'];
 
 function update() {
   const c = getCriteria();
@@ -371,76 +456,110 @@ function update() {
   document.getElementById('link-kbb').href        = urls.kbb;
   document.getElementById('link-edmunds').href    = urls.edmunds;
 
-  // Per-card: AutoTrader filtered to that card's year + tight price window
-  document.querySelectorAll('.card').forEach(card => {
+  const allCards = [...document.querySelectorAll('.card')];
+
+  // Per-card AutoTrader link (year + price window)
+  allCards.forEach(card => {
     const cardPrice = parseInt(card.dataset.price);
     const cardYear  = parseInt(card.dataset.year);
     const cardUrl   = 'https://www.autotrader.com/cars-for-sale/used-cars/jeep/gladiator/mojave/' + c.zip +
-      '?searchRadius=' + c.radius +
-      '&startYear=' + cardYear + '&endYear=' + cardYear +
+      '?searchRadius=' + c.radius + '&startYear=' + cardYear + '&endYear=' + cardYear +
       '&minPrice=' + Math.max(0, cardPrice - 1000) + '&maxPrice=' + (cardPrice + 500);
     const link = card.querySelector('.listing-link');
     if (link) link.href = cardUrl;
   });
 
-  const cards = document.querySelectorAll('.card');
-  let visible = 0, matches = 0;
+  // Determine which cards pass all filters
+  const passYear = allCards.filter(card => {
+    const year = parseInt(card.dataset.year);
+    return year >= c.yearMin && year <= c.yearMax;
+  });
 
-  cards.forEach(card => {
+  const visible = passYear.filter(card => {
+    return activeSource === 'all' || card.dataset.source === activeSource;
+  });
+
+  // Source counts (among year-filtered cards only)
+  const countAll = passYear.length;
+  document.getElementById('cnt-all').textContent = countAll ? '(' + countAll + ')' : '';
+  SOURCES.forEach(src => {
+    const n = passYear.filter(c => c.dataset.source === src).length;
+    const el = document.getElementById('cnt-' + src);
+    if (el) el.textContent = n ? '(' + n + ')' : '';
+  });
+
+  // Compute value scores for visible cards
+  const scoreMap = new Map();
+  visible.forEach(card => scoreMap.set(card, computeValueScore(card, visible)));
+
+  // Sort
+  const sorted = sortCards(visible, scoreMap);
+
+  // Apply badges, colors, score bubbles; hide non-visible
+  let matches = 0;
+  allCards.forEach(card => {
+    const inVisible = visible.includes(card);
+    card.classList.toggle('hidden', !inVisible);
+  });
+
+  sorted.forEach(card => {
     const price = parseInt(card.dataset.price);
     const miles = parseInt(card.dataset.miles);
-    const year  = parseInt(card.dataset.year);
-
-    if (year < c.yearMin || year > c.yearMax) { card.classList.add('hidden'); return; }
-    card.classList.remove('hidden');
-    visible++;
-
     const underBudget = price <= c.price;
     const underMiles  = miles <= c.miles;
     const isMatch     = underBudget && underMiles;
-    const overBoth    = !underBudget && !underMiles;
+    if (isMatch) matches++;
 
     const badge = card.querySelector('.card-badge');
-    if (isMatch) {
-      badge.textContent = 'Matches'; badge.className = 'card-badge badge-match';
-      card.classList.add('match'); matches++;
-    } else if (overBoth) {
-      badge.textContent = 'Over budget + miles'; badge.className = 'card-badge badge-both';
-      card.classList.remove('match');
-    } else if (!underBudget) {
-      badge.textContent = 'Over budget'; badge.className = 'card-badge badge-over-budget';
-      card.classList.remove('match');
-    } else {
-      badge.textContent = 'Over miles'; badge.className = 'card-badge badge-over-miles';
-      card.classList.remove('match');
-    }
+    if (isMatch) { badge.textContent = 'Matches'; badge.className = 'card-badge badge-match'; card.classList.add('match'); }
+    else if (!underBudget && !underMiles) { badge.textContent = 'Over budget+miles'; badge.className = 'card-badge badge-both'; card.classList.remove('match'); }
+    else if (!underBudget) { badge.textContent = 'Over budget'; badge.className = 'card-badge badge-over-budget'; card.classList.remove('match'); }
+    else { badge.textContent = 'Over miles'; badge.className = 'card-badge badge-over-miles'; card.classList.remove('match'); }
 
     const priceEl = card.querySelector('[data-type="price"]');
     const milesEl = card.querySelector('[data-type="miles"]');
     if (priceEl) priceEl.className = 'stat-value price' + (underBudget ? ' good' : ' over');
     if (milesEl) milesEl.className = 'stat-value' + (underMiles ? ' good' : ' over');
+
+    // Value score bubble
+    const score = scoreMap.get(card) || 0;
+    const scoreEl = card.querySelector('.value-score');
+    if (scoreEl) {
+      scoreEl.textContent = score;
+      scoreEl.className = 'value-score ' + (score >= 65 ? 'score-high' : score >= 35 ? 'score-mid' : 'score-low');
+      scoreEl.title = 'Value score: ' + score + '/100 (ranks price, mileage, year & history vs other listings shown)';
+    }
   });
 
+  // Re-order DOM
+  const grid = document.getElementById('card-grid');
+  sorted.forEach(card => grid.appendChild(card));
+
   document.getElementById('visible-count').textContent =
-    visible + ' listing' + (visible !== 1 ? 's' : '') + ' in year range';
+    visible.length + ' listing' + (visible.length !== 1 ? 's' : '') +
+    (activeSource !== 'all' ? ' from ' + activeSource : '');
 
   const banner = document.getElementById('summary-banner');
-  if (matches === 0 && visible > 0) {
+  if (visible.length === 0) {
     banner.className = 'summary-banner none';
-    banner.innerHTML = '&#9888; No saved listings meet all criteria. ' + visible + ' shown &mdash; use the search buttons above for fresh results.';
-  } else if (matches === visible && matches > 0) {
+    if (activeSource !== 'all') {
+      banner.innerHTML = 'No saved listings from ' + activeSource + ' yet. Use the search button above to find them.';
+    } else {
+      banner.innerHTML = 'No listings match the year range. Adjust Year Min / Max above.';
+    }
+  } else if (matches === 0) {
+    banner.className = 'summary-banner none';
+    banner.innerHTML = '&#9888; None of the ' + visible.length + ' listing' + (visible.length !== 1 ? 's' : '') + ' meet all criteria &mdash; adjust max price or mileage, or use a search button for fresh results.';
+  } else if (matches === visible.length) {
     banner.className = 'summary-banner all';
     banner.innerHTML = '&#10003; All ' + matches + ' listing' + (matches !== 1 ? 's' : '') + ' match your criteria!';
-  } else if (matches > 0) {
-    banner.className = 'summary-banner some';
-    banner.innerHTML = '&#10003; ' + matches + ' of ' + visible + ' listings match your criteria.';
   } else {
-    banner.className = 'summary-banner none';
-    banner.innerHTML = 'No listings in that year range. Try adjusting Year Min / Max.';
+    banner.className = 'summary-banner some';
+    banner.innerHTML = '&#10003; ' + matches + ' of ' + visible.length + ' listings match your criteria.';
   }
 
-  document.getElementById('empty-state').style.display = visible === 0 ? 'block' : 'none';
-  document.getElementById('card-grid').style.display   = visible === 0 ? 'none'  : 'grid';
+  document.getElementById('empty-state').style.display = visible.length === 0 ? 'block' : 'none';
+  document.getElementById('card-grid').style.display   = visible.length === 0 ? 'none'  : 'grid';
 }
 
 loadCriteria();

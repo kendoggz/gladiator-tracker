@@ -1,1 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gladiator Mojave Tracker</title>
+<style>
+:root {
+  --jeep-olive: #4a5240;
+  --jeep-tan: #c8a96e;
+  --jeep-dark: #1e2118;
+  --jeep-light: #f5f2ed;
+  --green: #2d7a3a;
+  --orange: #e67e22;
+  --red: #c0392b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--jeep-light); color: var(--jeep-dark); min-height: 100vh; }
 
+header { background: var(--jeep-dark); color: white; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+header h1 { font-size: 22px; font-weight: 700; }
+header h1 span { color: var(--jeep-tan); }
+.meta { font-size: 13px; color: #aaa; }
+
+.criteria-panel { background: var(--jeep-olive); color: white; padding: 16px 32px; }
+.criteria-panel h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+.criteria-grid { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+.criteria-field { display: flex; flex-direction: column; gap: 4px; }
+.criteria-field label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.7); }
+.criteria-field input {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px; color: white; font-size: 14px; font-weight: 600;
+  padding: 7px 10px; width: 110px; transition: background 0.15s;
+}
+.criteria-field input:focus { outline: none; background: rgba(255,255,255,0.25); border-color: var(--jeep-tan); }
+.criteria-actions { display: flex; flex-direction: column; gap: 6px; margin-left: auto; }
+.btn-search {
+  background: var(--jeep-tan); color: var(--jeep-dark); border: none; border-radius: 6px;
+  padding: 9px 18px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap;
+  text-decoration: none; display: inline-block; text-align: center; transition: opacity 0.15s;
+}
+.btn-search:hover { opacity: 0.85; }
+.btn-reset {
+  background: transparent; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px; padding: 6px 18px; font-size: 12px; cursor: pointer; white-space: nowrap;
+}
+.btn-reset:hover { color: white; border-color: white; }
+
+.summary-banner { padding: 14px 32px; font-size: 14px; border-left: 4px solid; }
+.summary-banner.none { background: #fff3cd; border-color: var(--orange); color: #7d4e00; }
+.summary-banner.some { background: #eaf5eb; border-color: var(--green); color: #1a4d22; }
+.summary-banner.all  { background: #eaf5eb; border-color: var(--green); color: #1a4d22; }
+
+main { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
+.section-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.section-header h2 { font-size: 16px; font-weight: 600; color: var(--jeep-olive); }
+.section-header .count { font-size: 12px; color: #888; }
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+.card {
+  background: white; border-radius: 10px; padding: 18px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08); border: 1px solid #e8e4de; position: relative;
+}
+.card.hidden { display: none; }
+.card.match { border-color: #a8d5af; box-shadow: 0 1px 8px rgba(45,122,58,0.12); }
+
+.card-badge {
+  position: absolute; top: 12px; right: 12px; font-size: 11px; font-weight: 700;
+  padding: 3px 8px; border-radius: 99px; color: white;
+}
+.badge-match { background: var(--green); }
+.badge-over-budget { background: var(--orange); }
+.badge-over-miles { background: var(--orange); }
+.badge-both { background: var(--red); }
+
+.card-year { font-size: 13px; color: #888; margin-bottom: 4px; }
+.card-name { font-size: 17px; font-weight: 700; margin-bottom: 14px; }
+.card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.stat-label { color: #999; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
+.stat-value { font-weight: 600; font-size: 15px; margin-top: 2px; }
+.stat-value.price { color: var(--jeep-olive); font-size: 18px; }
+.stat-value.over { color: var(--orange); }
+.stat-value.good { color: var(--green); }
+.tag { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 4px; background: #eaf5eb; color: var(--green); font-weight: 600; margin-right: 4px; margin-bottom: 6px; }
+.tag.warn { background: #fff3cd; color: #7d4e00; }
+.tag.neutral { background: #f0ede8; color: #666; }
+.view-btn {
+  display: block; width: 100%; text-align: center; margin-top: 10px; padding: 9px;
+  background: var(--jeep-olive); color: white; text-decoration: none; border-radius: 6px;
+  font-size: 13px; font-weight: 600;
+}
+.view-btn:hover { background: var(--jeep-dark); }
+
+.empty-state { text-align: center; padding: 40px 20px; color: #888; font-size: 14px; }
+.note { font-size: 13px; color: #888; margin-top: 32px; border-top: 1px solid #e0dbd4; padding-top: 16px; }
+
+@media (max-width: 600px) {
+  header, .criteria-panel, main { padding-left: 16px; padding-right: 16px; }
+  .criteria-field input { width: 90px; }
+  .criteria-actions { margin-left: 0; flex-direction: row; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>&#x1F699; Gladiator <span>Mojave</span> Tracker</h1>
+  <div class="meta">Last updated: June 6, 2026 &middot; AutoTrader &middot; Hingham MA area</div>
+</header>
+
+<div class="criteria-panel">
+  <h3>Search Criteria &mdash; edit any field to filter listings</h3>
+  <div class="criteria-grid">
+    <div class="criteria-field">
+      <label>Max Price ($)</label>
+      <input type="number" id="inp-price" value="34000" min="0" step="500">
+    </div>
+    <div class="criteria-field">
+      <label>Max Miles</label>
+      <input type="number" id="inp-miles" value="35000" min="0" step="1000">
+    </div>
+    <div class="criteria-field">
+      <label>Year Min</label>
+      <input type="number" id="inp-year-min" value="2021" min="2019" max="2025" step="1">
+    </div>
+    <div class="criteria-field">
+      <label>Year Max</label>
+      <input type="number" id="inp-year-max" value="2024" min="2019" max="2025" step="1">
+    </div>
+    <div class="criteria-field">
+      <label>ZIP Code</label>
+      <input type="text" id="inp-zip" value="02043" maxlength="5">
+    </div>
+    <div class="criteria-field">
+      <label>Radius (mi)</label>
+      <input type="number" id="inp-radius" value="75" min="10" max="500" step="5">
+    </div>
+    <div class="criteria-actions">
+      <a id="btn-autotrader" href="#" target="_blank" class="btn-search">Search AutoTrader &#x2197;</a>
+      <button class="btn-reset" onclick="resetCriteria()">Reset to defaults</button>
+    </div>
+  </div>
+</div>
+
+<div class="summary-banner none" id="summary-banner">Loading...</div>
+
+<main>
+  <div class="section-header">
+    <h2>Nearby Listings</h2>
+    <span class="count" id="visible-count"></span>
+  </div>
+
+  <div class="card-grid" id="card-grid">
+
+    <div class="card" data-price="31805" data-miles="47000" data-year="2022">
+      <span class="card-badge"></span>
+      <div class="card-year">2022 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$31,805</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">47,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">74 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+      </div>
+      <div><span class="tag neutral">Nucar Pre-Owned &middot; Concord NH</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+    <div class="card" data-price="31872" data-miles="59000" data-year="2022">
+      <span class="card-badge"></span>
+      <div class="card-year">2022 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$31,872</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">59,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">35 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+      </div>
+      <div><span class="tag neutral">Imperial CDJR &middot; Mendon MA</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+    <div class="card" data-price="32980" data-miles="65000" data-year="2021">
+      <span class="card-badge"></span>
+      <div class="card-year">2021 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$32,980</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">65,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">22 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+      </div>
+      <div><span class="tag neutral">Albrecht Buick GMC &middot; Wakefield MA</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+    <div class="card" data-price="35849" data-miles="35000" data-year="2021">
+      <span class="card-badge"></span>
+      <div class="card-year">2021 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab (CPO)</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$35,849</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">35,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">24 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+      </div>
+      <div><span class="tag">Jeep Certified</span><span class="tag neutral">Brigham-Gill CDJR</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+    <div class="card" data-price="38282" data-miles="33000" data-year="2022">
+      <span class="card-badge"></span>
+      <div class="card-year">2022 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$38,282</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">33,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">58 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+      </div>
+      <div><span class="tag neutral">Near Boston MA</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+    <div class="card" data-price="38384" data-miles="29000" data-year="2023">
+      <span class="card-badge"></span>
+      <div class="card-year">2023 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$38,384</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">29,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">28 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+      </div>
+      <div><span class="tag neutral">Vendetti Motors &middot; Franklin MA</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+    <div class="card" data-price="38395" data-miles="30000" data-year="2022">
+      <span class="card-badge"></span>
+      <div class="card-year">2022 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$38,395</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">30,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">71 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">No Accidents</div></div>
+      </div>
+      <div><span class="tag neutral">Near Boston MA</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+    <div class="card" data-price="42999" data-miles="14000" data-year="2022">
+      <span class="card-badge"></span>
+      <div class="card-year">2022 Jeep Gladiator</div>
+      <div class="card-name">Mojave Crew Cab</div>
+      <div class="card-stats">
+        <div><div class="stat-label">Price</div><div class="stat-value price" data-type="price">$42,999</div></div>
+        <div><div class="stat-label">Mileage</div><div class="stat-value" data-type="miles">14,000 mi</div></div>
+        <div><div class="stat-label">Distance</div><div class="stat-value">29 mi away</div></div>
+        <div><div class="stat-label">History</div><div class="stat-value">Unverified</div></div>
+      </div>
+      <div><span class="tag warn">Unverified history</span></div>
+      <a class="view-btn listing-link" href="#" target="_blank">View on AutoTrader &rarr;</a>
+    </div>
+
+  </div>
+
+  <div id="empty-state" class="empty-state" style="display:none">
+    No listings match your current criteria. Try adjusting the max price or mileage above.
+  </div>
+
+  <p class="note">
+    Data from AutoTrader &middot; Scraped June 6, 2026 &middot;
+    Adjust criteria above, then click <strong>Search AutoTrader</strong> to get fresh results.
+  </p>
+</main>
+
+<script>
+const DEFAULTS = { price: 34000, miles: 35000, yearMin: 2021, yearMax: 2024, zip: '02043', radius: 75 };
+
+function getCriteria() {
+  return {
+    price:   parseInt(document.getElementById('inp-price').value)    || DEFAULTS.price,
+    miles:   parseInt(document.getElementById('inp-miles').value)    || DEFAULTS.miles,
+    yearMin: parseInt(document.getElementById('inp-year-min').value) || DEFAULTS.yearMin,
+    yearMax: parseInt(document.getElementById('inp-year-max').value) || DEFAULTS.yearMax,
+    zip:     document.getElementById('inp-zip').value.trim()          || DEFAULTS.zip,
+    radius:  parseInt(document.getElementById('inp-radius').value)   || DEFAULTS.radius,
+  };
+}
+
+function saveCriteria(c) {
+  try { localStorage.setItem('gladiator-criteria', JSON.stringify(c)); } catch(e) {}
+}
+
+function loadCriteria() {
+  try {
+    const s = JSON.parse(localStorage.getItem('gladiator-criteria'));
+    if (!s) return;
+    if (s.price)   document.getElementById('inp-price').value    = s.price;
+    if (s.miles)   document.getElementById('inp-miles').value    = s.miles;
+    if (s.yearMin) document.getElementById('inp-year-min').value = s.yearMin;
+    if (s.yearMax) document.getElementById('inp-year-max').value = s.yearMax;
+    if (s.zip)     document.getElementById('inp-zip').value      = s.zip;
+    if (s.radius)  document.getElementById('inp-radius').value   = s.radius;
+  } catch(e) {}
+}
+
+function resetCriteria() {
+  document.getElementById('inp-price').value    = DEFAULTS.price;
+  document.getElementById('inp-miles').value    = DEFAULTS.miles;
+  document.getElementById('inp-year-min').value = DEFAULTS.yearMin;
+  document.getElementById('inp-year-max').value = DEFAULTS.yearMax;
+  document.getElementById('inp-zip').value      = DEFAULTS.zip;
+  document.getElementById('inp-radius').value   = DEFAULTS.radius;
+  update();
+}
+
+function buildURL(c) {
+  return 'https://www.autotrader.com/cars-for-sale/used-cars/jeep/gladiator/mojave/' + c.zip +
+    '?searchRadius=' + c.radius + '&startYear=' + c.yearMin + '&endYear=' + c.yearMax +
+    '&maxPrice=' + c.price + '&maxMileage=' + c.miles;
+}
+
+function fmt(n) { return n.toLocaleString(); }
+
+function update() {
+  const c = getCriteria();
+  saveCriteria(c);
+
+  const url = buildURL(c);
+  document.getElementById('btn-autotrader').href = url;
+
+  // Per-card: link to AutoTrader filtered to that car's year + tight price window
+  document.querySelectorAll('.card').forEach(card => {
+    const cardPrice = parseInt(card.dataset.price);
+    const cardYear  = parseInt(card.dataset.year);
+    const minPrice  = Math.max(0, cardPrice - 1000);
+    const cardUrl   = 'https://www.autotrader.com/cars-for-sale/used-cars/jeep/gladiator/mojave/' + c.zip +
+      '?searchRadius=' + c.radius +
+      '&startYear=' + cardYear + '&endYear=' + cardYear +
+      '&minPrice=' + minPrice + '&maxPrice=' + (cardPrice + 500);
+    const link = card.querySelector('.listing-link');
+    if (link) link.href = cardUrl;
+  });
+
+  const cards = document.querySelectorAll('.card');
+  let visible = 0, matches = 0;
+
+  cards.forEach(card => {
+    const price = parseInt(card.dataset.price);
+    const miles = parseInt(card.dataset.miles);
+    const year  = parseInt(card.dataset.year);
+
+    if (year < c.yearMin || year > c.yearMax) {
+      card.classList.add('hidden');
+      return;
+    }
+    card.classList.remove('hidden');
+    visible++;
+
+    const underBudget = price <= c.price;
+    const underMiles  = miles <= c.miles;
+    const isMatch     = underBudget && underMiles;
+    const overBoth    = !underBudget && !underMiles;
+
+    const badge = card.querySelector('.card-badge');
+    if (isMatch) {
+      badge.textContent = '✓ Matches';
+      badge.className = 'card-badge badge-match';
+      card.classList.add('match');
+      matches++;
+    } else if (overBoth) {
+      badge.textContent = 'Over budget + miles';
+      badge.className = 'card-badge badge-both';
+      card.classList.remove('match');
+    } else if (!underBudget) {
+      badge.textContent = 'Over budget';
+      badge.className = 'card-badge badge-over-budget';
+      card.classList.remove('match');
+    } else {
+      badge.textContent = 'Over miles';
+      badge.className = 'card-badge badge-over-miles';
+      card.classList.remove('match');
+    }
+
+    const priceEl = card.querySelector('[data-type="price"]');
+    const milesEl = card.querySelector('[data-type="miles"]');
+    if (priceEl) priceEl.className = 'stat-value price' + (underBudget ? ' good' : ' over');
+    if (milesEl) milesEl.className = 'stat-value' + (underMiles ? ' good' : ' over');
+  });
+
+  document.getElementById('visible-count').textContent =
+    visible + ' listing' + (visible !== 1 ? 's' : '') + ' in year range';
+
+  const banner = document.getElementById('summary-banner');
+  if (matches === 0 && visible > 0) {
+    banner.className = 'summary-banner none';
+    banner.innerHTML = '&#9888; No listings meet all criteria (under $' + fmt(c.price) +
+      ' <em>and</em> under ' + fmt(c.miles) + ' mi). ' + visible +
+      ' Mojave' + (visible !== 1 ? 's' : '') +
+      ' shown &mdash; try loosening your criteria or <a href="' + url +
+      '" target="_blank" style="color:#7d4e00;font-weight:600">search AutoTrader for fresh results</a>.';
+  } else if (matches === visible && matches > 0) {
+    banner.className = 'summary-banner all';
+    banner.innerHTML = '&#10003; All ' + matches + ' listing' + (matches !== 1 ? 's' : '') + ' match your criteria!';
+  } else if (matches > 0) {
+    banner.className = 'summary-banner some';
+    banner.innerHTML = '&#10003; ' + matches + ' of ' + visible + ' listing' +
+      (visible !== 1 ? 's' : '') + ' match your criteria.';
+  } else {
+    banner.className = 'summary-banner none';
+    banner.innerHTML = 'No listings in that year range. Try adjusting Year Min / Max.';
+  }
+
+  document.getElementById('empty-state').style.display = visible === 0 ? 'block' : 'none';
+  document.getElementById('card-grid').style.display   = visible === 0 ? 'none' : 'grid';
+}
+
+loadCriteria();
+update();
+document.querySelectorAll('.criteria-panel input').forEach(inp => {
+  inp.addEventListener('input', update);
+});
+</script>
+</body>
+</html>
